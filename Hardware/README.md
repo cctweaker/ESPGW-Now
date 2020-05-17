@@ -16,6 +16,4 @@ A strap has to be made between 3.3V and 4-12V pins on the bottom of the PCB.
 
 - 4-12V DC power source: populate the screw terminal and Q1 (BA033CC). Make sure the PCB is well ventilated if the voltage used is above 6V.
 
-<img src="https://github.com/cctweaker/ESPGW-Now/raw/master/Hardware/ESPGW%20top.png">
-<img src="https://github.com/cctweaker/ESPGW-Now/raw/master/Hardware/ESPGW%20bottom.png">
-<img src="https://github.com/cctweaker/ESPGW-Now/raw/master/Hardware/mods.png">
+<img src="https://github.com/cctweaker/ESPGW-Now/raw/master/Hardware/ESPGW%20top.png"><img src="https://github.com/cctweaker/ESPGW-Now/raw/master/Hardware/ESPGW%20bottom.png"><img src="https://github.com/cctweaker/ESPGW-Now/raw/master/Hardware/mods.png">
