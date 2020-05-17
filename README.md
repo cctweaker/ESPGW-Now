@@ -23,3 +23,4 @@ Rename example_private.h to private.h and edit to you liking.
 
 # Hardware
 Roll your own by cross-connecting RX and TX from two ESP8266 devices. GND pin must be common if not powered from the same source.
+
