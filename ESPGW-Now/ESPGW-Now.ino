@@ -1,3 +1,4 @@
+ADC_MODE(ADC_VCC);
 #include <ESP8266WiFi.h>
 extern "C"
 {
@@ -5,18 +6,18 @@ extern "C"
 #include <user_interface.h>
 }
 
-// remember to edit and rename
-// example_private.h to private.h
-// before building
-#include "private.h"
-#include "variables.h"
+// remember to edit example_private.h before building project!
+#include "example_private.h"
 
 void initVariant()
 {
   WiFi.mode(WIFI_AP);
   wifi_set_macaddr(SOFTAP_IF, gmac);
 
-  WiFi.softAP(HOSTNAME, PASSWORD, WIFI_CHANNEL);
+  char HOSTNAME[32];
+  sprintf(HOSTNAME, "%s_%06x", FWN, ESP.getChipId());
+
+  WiFi.softAP(HOSTNAME, PASSWORD, WIFI_CHANNEL, HIDE_AP);
 }
 
 void setup()
@@ -34,8 +35,8 @@ void setup()
 
   esp_now_set_self_role(ESP_NOW_ROLE_COMBO);
 
-  // add 6 more peers after gmac by increasing last byte in mac
-  for (uint8_t i = 1; i <= 6; i++)
+  // add 6 more peers after gmac by increasing last byte in the gateway mac
+  for (uint8_t i = 0; i < 6; i++)
   {
     gmac[5]++;
     esp_now_add_peer(gmac, ESP_NOW_ROLE_COMBO, WIFI_CHANNEL, key, 16);
@@ -48,9 +49,12 @@ void loop()
   if (millis() - last_hb >= heartbeat)
   {
     last_hb = millis();
-    Serial.print(F("{\"t\":\"g\",\"n\":\"ESPNGW\",\"sec\":"));
-    Serial.print(last_hb/1000);
-    Serial.println(F("}"));
+
+    char tx[256];
+
+    sprintf(tx, "{\"t\":\"%s\",\"v\":%.2f,\"ID\":\"%06x\",\"vcc\":%d}", FWN, VERSION, ESP.getChipId(), ESP.getVcc());
+
+    Serial.print(&tx[0]);
   }
 }
 
